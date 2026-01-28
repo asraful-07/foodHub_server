@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
-import { CreateMealService } from "./meal.service";
+import { CreateMealService, GetsMealsService } from "./meal.service";
 import { prisma } from "../../lib/prisma";
+import { UserRole } from "../../middleware/authMiddleware";
 
 export const CreateMealController: RequestHandler = async (req, res) => {
   try {
@@ -12,7 +13,6 @@ export const CreateMealController: RequestHandler = async (req, res) => {
         .json({ success: false, message: "Unauthorized user" });
     }
 
-    // ✅ provider profile fetch
     const providerProfile = await prisma.providerProfile.findUnique({
       where: { userId: user.id },
     });
@@ -25,7 +25,6 @@ export const CreateMealController: RequestHandler = async (req, res) => {
       });
     }
 
-    // ✅ meal create
     const meal = await CreateMealService({
       ...req.body,
       providerId: providerProfile.id,
@@ -36,6 +35,28 @@ export const CreateMealController: RequestHandler = async (req, res) => {
       message: "Successfully meal created",
       data: meal,
     });
+  } catch (err: any) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+export const GetsMealsController: RequestHandler = async (req, res) => {
+  try {
+    const user = req.user;
+
+    if (!user) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Unauthorized user" });
+    }
+
+    const isAdmin = user.role === UserRole.ADMIN;
+
+    const meal = await GetsMealsService(isAdmin, user?.id);
+
+    res
+      .status(200)
+      .json({ success: true, message: "Meals fetch successfully", data: meal });
   } catch (err: any) {
     res.status(500).json({ success: false, message: err.message });
   }
