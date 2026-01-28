@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/asraful-07/foodHub_client#readme",
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^25.0.10",
     "@types/pg": "^8.16.0",
@@ -31,6 +32,7 @@
   "dependencies": {
     "@prisma/adapter-pg": "^7.3.0",
     "@prisma/client": "^7.3.0",
+    "better-auth": "^1.4.17",
     "pg": "^8.17.2",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
