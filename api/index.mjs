@@ -24247,8 +24247,8 @@ var require_cli_options = __commonJS({
 });
 
 // src/app.ts
-var import_express9 = __toESM(require_express2(), 1);
-var import_cors = __toESM(require_lib3(), 1);
+var import_express9 = __toESM(require_express2());
+var import_cors = __toESM(require_lib3());
 
 // src/lib/auth.ts
 import { betterAuth } from "better-auth";
@@ -24377,10 +24377,10 @@ var auth = betterAuth({
 import { toNodeHandler } from "better-auth/node";
 
 // src/routes/index.ts
-var import_express8 = __toESM(require_express2(), 1);
+var import_express8 = __toESM(require_express2());
 
 // src/modules/provider/provider.routes.ts
-var import_express = __toESM(require_express2(), 1);
+var import_express = __toESM(require_express2());
 
 // src/modules/provider/provider.service.ts
 var CreateProviderService = async (data) => {
@@ -24485,7 +24485,7 @@ providerRoutes.get("/:id", GetProviderController);
 var provider_routes_default = providerRoutes;
 
 // src/modules/categories/categories.routes.ts
-var import_express2 = __toESM(require_express2(), 1);
+var import_express2 = __toESM(require_express2());
 
 // src/modules/categories/categories.service.ts
 var CrateCategoriesService = async (data) => {
@@ -24610,7 +24610,7 @@ categoriesRoutes.delete(
 var categories_routes_default = categoriesRoutes;
 
 // src/modules/meal/meal.routes.ts
-var import_express3 = __toESM(require_express2(), 1);
+var import_express3 = __toESM(require_express2());
 
 // src/modules/meal/meal.service.ts
 var CreateMealService = async (data) => {
@@ -24898,7 +24898,7 @@ mealRoutes.delete("/:id", DeleteMealsController);
 var meal_routes_default = mealRoutes;
 
 // src/modules/order/order.routes.ts
-var import_express4 = __toESM(require_express2(), 1);
+var import_express4 = __toESM(require_express2());
 
 // src/modules/order/order.service.ts
 var CreateOrderService = async (payload) => {
@@ -25138,7 +25138,7 @@ orderRoutes.patch(
 var order_routes_default = orderRoutes;
 
 // src/modules/user/user.routes.ts
-var import_express5 = __toESM(require_express2(), 1);
+var import_express5 = __toESM(require_express2());
 
 // src/modules/user/user.service.ts
 var GetsUserService = async () => {
@@ -25261,7 +25261,7 @@ userRoutes.get("/statics", GetStatsController);
 var user_routes_default = userRoutes;
 
 // src/modules/review/review.routes.ts
-var import_express6 = __toESM(require_express2(), 1);
+var import_express6 = __toESM(require_express2());
 
 // src/modules/review/review.service.ts
 var CreateReviewServices = async (data) => {
@@ -25319,7 +25319,7 @@ reviewRoutes.get("/", GetsReviewController);
 var review_routes_default = reviewRoutes;
 
 // src/modules/cart/cart.routes.ts
-var import_express7 = __toESM(require_express2(), 1);
+var import_express7 = __toESM(require_express2());
 
 // src/modules/cart/cart.service.ts
 var AddToCartService = async (customerId, mealId, quantity = 1) => {
