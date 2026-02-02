@@ -1,0 +1,232 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model ProviderProfile {
+  id             String  @id @default(uuid())
+  userId         String  @unique //* Auth system user id
+  restaurantName String
+  image          String
+  description    String?
+  address        String
+  phone          String
+  isOpen         Boolean @default(true)
+
+  user           User @relation(fields: [userId], references: [id])
+  meals          Meal[]
+  orders         Order[]
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Category {
+  id   String @id @default(uuid())
+  name String @unique
+
+  meals Meal[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Meal {
+  id         String @id @default(uuid())
+  providerId String
+  categoryId String
+
+  name        String
+  description String?
+  price       Float
+  image       String[]
+  isAvailable Boolean  @default(true)
+  stock       Int      @default(0)
+  dietaryPreferences DietaryPreference
+
+  provider  ProviderProfile @relation(fields: [providerId], references: [id])
+  category  Category        @relation(fields: [categoryId], references: [id])
+  reviews   Review[]
+  orderItem OrderItem[]
+  cartItem  CartItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([providerId])
+  @@index([categoryId])
+}
+
+enum DietaryPreference {
+  VEG
+  NON_VEG
+}
+
+model Order {
+  id              String @id @default(uuid())
+  customerId      String //* Auth user id
+  providerId      String
+
+  totalPrice      Float
+  deliveryAddress String
+  status          OrderStatus @default(PLACED)
+
+  items           OrderItem[]
+
+  provider        ProviderProfile @relation(fields: [providerId], references: [id])
+  customer        User @relation(fields: [customerId], references: [id])
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([customerId])
+  @@index([providerId])
+}
+
+model OrderItem {
+  id      String @id @default(uuid())
+  orderId String
+  mealId  String
+
+  quantity Int
+  price    Float
+
+  order Order @relation(fields: [orderId], references: [id])
+  meal  Meal  @relation(fields: [mealId], references: [id])
+}
+
+model Review {
+  id              String @id @default(uuid())
+  mealId          String
+  customerId      String //* Auth user id
+
+  rating          Int 
+  comment         String?
+
+  meal            Meal @relation(fields: [mealId], references: [id])
+  customer        User @relation(fields: [customerId], references: [id])
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([mealId])
+  @@index([customerId])
+}
+
+enum OrderStatus {
+  PLACED
+  PREPARING
+  READY
+  DELIVERED
+  CANCELLED
+}
+
+model Cart {
+  id        String   @id @default(uuid())
+  customerId    String   @unique
+  items     CartItem[]
+
+  customer      User     @relation(fields: [customerId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CartItem {
+  id       String @id @default(uuid())
+  cartId   String
+  mealId   String
+
+  quantity Int    @default(1)
+
+  cart Cart @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  meal Meal @relation(fields: [mealId], references: [id])
+
+  @@unique([cartId, mealId])
+}
+
+
+model User {
+  id              String     @id
+  name            String
+  email           String
+  emailVerified   Boolean    @default(false)
+  image           String?
+  
+  role            String?    @default("CUSTOMER")
+  status          String?    @default("active")
+
+  sessions        Session[]
+  accounts        Account[]
+
+  providerProfile ProviderProfile[]
+  order           Order[] 
+  review          Review[] 
+  cart            Cart[]
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
