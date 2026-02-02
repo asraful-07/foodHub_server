@@ -1,0 +1,40 @@
+{
+  "name": "foodhub_client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx watch ./src/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asraful-07/foodHub_client.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/asraful-07/foodHub_client/issues"
+  },
+  "homepage": "https://github.com/asraful-07/foodHub_client#readme",
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.0.10",
+    "@types/pg": "^8.16.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "prisma": "^7.3.0"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.3.0",
+    "@prisma/client": "^7.3.0",
+    "better-auth": "^1.4.17",
+    "pg": "^8.17.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
