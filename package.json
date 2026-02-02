@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch ./src/server.ts"
+    "dev": "tsx watch ./src/server.ts",
+    "seedAdmin": "npx tsx src/scripts/seedAdmin.ts",
+    "build": "prisma generate && tsup src/index.ts --format esm --platform node --target node20 --outDir api --external pg-native",
+    "postinstall": "prisma generate"
   },
   "repository": {
     "type": "git",
@@ -27,7 +30,8 @@
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
-    "prisma": "^7.3.0"
+    "prisma": "^7.3.0",
+    "tsup": "^8.5.1"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.3.0",

@@ -16,3 +16,9 @@ app.use(express.json());
 //* Routes
 app.all("/api/auth/*split", toNodeHandler(auth));
 app.use("/api", router);
+app.get("/", (req, res) => {
+  res.json({
+    success: true,
+    message: "FoodHub API is running",
+  });
+});
