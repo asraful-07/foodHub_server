@@ -9,6 +9,17 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-v14+-336791.svg)](https://www.postgresql.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+🚀 Live Project
+🔗 Frontend Live URL:
+(https://food-app-nu-rose.vercel.app)
+
+🔗 Backend Live URL:
+(https://food-hunt-server-psi.vercel.app)
+
+🎥 Project Demo Video
+🎬 Video URL:
+(https://www.loom.com/share/e631eae7cd9b4d8db34a69276953f1bf)
+
 ## 📋 Table of Contents
 
 - [Overview](#overview)
