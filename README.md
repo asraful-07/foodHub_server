@@ -10,6 +10,7 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 🚀 Live Project
+
 🔗 Frontend Live URL:
 (https://food-app-nu-rose.vercel.app)
 
